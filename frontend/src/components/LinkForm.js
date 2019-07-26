@@ -1,11 +1,12 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react';
 
 export default class LinkForm extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            link: '',
+            full_link: '',
+            short_link: '',
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -23,13 +24,14 @@ export default class LinkForm extends Component {
     onSubmit = (event) => {
         event.preventDefault()
 
-        // Fake submit action
-        console.log('Submitted : ' + this.state.link)
-        // End Fake
-        
-        this.setState({
-            link : ''
-        })
+        console.log('Submitted : ' + this.state.full_link) // CONSOLE LOG
+
+        this.props.shortenLink(this.state.full_link)
+
+        this.setState((updater) => ({
+            ...this.state,
+            full_link : ''
+        }))
 
     }
 
@@ -39,9 +41,9 @@ export default class LinkForm extends Component {
             <form onSubmit={this.onSubmit}>
                 <input 
                     type='text' 
-                    name='link' 
-                    value={this.state.link} 
-                    placeholder='example.org'
+                    name='full_link' 
+                    value={this.state.full_link} 
+                    placeholder='http://example.org'
                     onChange={this.handleChange}
                 />
                 <button type='submit'>Submit</button>

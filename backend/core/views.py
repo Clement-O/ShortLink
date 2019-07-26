@@ -12,10 +12,12 @@ from .serializers import CreateShortLinkSerializer
 
 
 class CreateShortLinkView(APIView):
+    
     def post(self, request, format=None):
+        print(request.data) # TEST PRINT
         serializer = CreateShortLinkSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            print(serializer.data)
+            print(serializer.data) # TEST PRINT
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)

@@ -5,17 +5,24 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 // Third party import
+import { Provider } from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 
-import LinkForm from './components/LinkForm';
+import {store} from './store'
+import MainPage from './containers/MainPage';
+// import LinkForm from './components/LinkForm'
+
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Switch>
-            <Route exact path='/demoapp' component={App} />
-            <Route exact path='/' component={LinkForm} /> {/* Temp, include LinkForm in a 'real' page */}
-        </Switch>
-    </BrowserRouter>, 
+    <Provider store={store}>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path='/demoapp' component={App} />
+                <Route exact path='/' component={MainPage} /> {/* Temp, include LinkForm in a 'real' page */}
+            </Switch>
+        </BrowserRouter>
+    </Provider>
+    , 
     document.getElementById('root')
     );
 
