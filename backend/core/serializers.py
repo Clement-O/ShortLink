@@ -4,7 +4,8 @@ from rest_framework import serializers
 # Local import
 from .models import ShortLink
 
-class CreateShortLinkSerializer(serializers.ModelSerializer):
+
+class ShortLinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShortLink
         fields = ['full_link', 'short_link']

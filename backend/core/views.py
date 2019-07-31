@@ -1,23 +1,38 @@
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
-
 # Third party import
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework import parsers, renderers
 
 # Local import
 from .models import ShortLink
-from .serializers import CreateShortLinkSerializer
+from .serializers import ShortLinkSerializer
 
 
-class CreateShortLinkView(APIView):
-    
-    def post(self, request, format=None):
-        print(request.data) # TEST PRINT
-        serializer = CreateShortLinkSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            print(serializer.data) # TEST PRINT
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+# Handle POST
+class CreateShortLinkView(CreateAPIView):
+    parser_classes = (
+        parsers.FormParser,
+        parsers.MultiPartParser,
+        parsers.JSONParser,
+    )
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = ShortLinkSerializer
+
+
+# Handle GET
+class RetrieveShortLinkView(RetrieveAPIView):
+    parser_classes = (
+        parsers.FormParser,
+        parsers.MultiPartParser,
+        parsers.JSONParser,
+    )
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = ShortLinkSerializer
+
+    def get_object(self):
+        return ShortLink.objects.get(short_link=self.kwargs.get('short_link'))
+
+    # return object like this one
+    # {
+    #     "full_link": "https://www.google.com/",
+    #     "short_link": "D88o9"
+    # }

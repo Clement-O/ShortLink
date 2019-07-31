@@ -6,8 +6,8 @@ import sys
 # Third party import
 from dotenv import load_dotenv
 
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
