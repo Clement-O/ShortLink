@@ -15,20 +15,18 @@ class MainPage extends Component {
         }
 
         store.subscribe(() => {
-            console.log('subscribe ' + store.getState().short_link)
             this.setState({
-                short_link: store.getState().short_link
+                short_link: store.getState().link.short_link
             })
         })
     }
 
     render() {
-        console.log(this.state.short_link + ' <State - Store> ' + store)
         return (
             <div>
                 <h1>Shorten link app</h1>
                 <LinkForm shortenLink={this.props.shortenLink}/>
-                <h2>{this.state.short_link ? this.state.short_link : 'None'}</h2>
+                <h2>{this.props.short_link ? this.props.short_link : ''}</h2>
             </div>
         )
     }
@@ -36,8 +34,8 @@ class MainPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        full_link: state.full_link,
-        short_link: state.short_link,
+        full_link: state.link.full_link,
+        short_link: state.link.short_link,
     }
 }
 
