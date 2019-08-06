@@ -24,15 +24,12 @@ export default class LinkForm extends Component {
     onSubmit = (event) => {
         event.preventDefault()
 
-        console.log('Submitted : ' + this.state.full_link) // CONSOLE LOG
-
         this.props.shortenLink(this.state.full_link)
 
         this.setState((updater) => ({
             ...this.state,
             full_link : ''
         }))
-
     }
 
     render() {

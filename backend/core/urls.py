@@ -13,5 +13,15 @@ urlpatterns = [
         'redirect/<short_link>/',
         views.RetrieveShortLinkView.as_view(),
         name='short-link-redirect'
+    ),
+    path(
+        'token-access/',
+        views.UserAccessTokenView.as_view(),
+        name='user-access-token'
+    ),
+    path(
+        'token-refresh/',
+        views.UserRefreshTokenView.as_view(),
+        name='user-refresh-token'
     )
 ]
