@@ -1,24 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-// Third party import
 import { Provider } from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-
+// Local import
+import './index.css';
+import App from './App';
 import {store} from './store'
 import MainPage from './containers/MainPage';
-// import LinkForm from './components/LinkForm'
-
+import LoginPage from "./containers/LoginPage";
+import LogoutPage from "./containers/LogoutPage";
 
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
                 <Route exact path='/demoapp' component={App} />
-                <Route exact path='/' component={MainPage} /> {/* Temp, include LinkForm in a 'real' page */}
+                <Route exact path='/' component={MainPage} />
+                <Route exact path='/login' component={LoginPage} />
+                <Route exact path='/logout' component={LogoutPage} />
             </Switch>
         </BrowserRouter>
     </Provider>

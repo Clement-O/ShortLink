@@ -1,14 +1,53 @@
+export const SHORTEN_LINK_REQUEST = 'SHORTEN_LINK_REQUEST'
+export const SHORTEN_LINK_SUCCESS = 'SHORTEN_LINK_SUCCESS'
+export const SHORTEN_LINK_ERROR = 'SHORTEN_LINK_ERROR'
+
+function requestShortenLink(full_link) {
+    return {
+        type: SHORTEN_LINK_REQUEST,
+        isShortening: true,
+        isShortened: false,
+        full_link
+    }
+}
+
+function successShortenLink(links) {
+    return {
+        type: SHORTEN_LINK_SUCCESS,
+        isShortening: false,
+        isShortened: true,
+        full_link: links.full_link,
+        short_link: links.short_link
+    }
+}
+
+function errorShortenLink(message) {
+    return {
+        type: SHORTEN_LINK_ERROR,
+        isShortening: false,
+        isShortened: false,
+        message
+    }
+}
+
 export const shortenLink = full_link => {
+    const config = {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({full_link})
+    }
     return dispatch => {
-        const headers = {"Content-Type": "application/json"};
-        const body = JSON.stringify({full_link});
-        return fetch('/create-short-link/', {method: 'POST', headers, body})
-            .then(res => res.json())
-            .then(obj => {
-                return dispatch({
-                    type: 'SHORTENED_LINK',
-                    ...obj
-                })
+        dispatch(requestShortenLink(full_link))
+
+        return fetch('/create-short-link/', config)
+            .then(res => res.json().then(links => ({links, res})))
+            .then(({links, res}) => {
+                if (!res.ok) {
+                    dispatch(errorShortenLink(links.message))
+                    return Promise.reject(links)
+                } else {
+                    dispatch(successShortenLink(links))
+                }
             })
     }    
 }
