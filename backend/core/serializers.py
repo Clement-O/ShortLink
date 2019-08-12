@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.contrib.auth.models import User
 
 # Third party import
 from rest_framework import serializers
@@ -8,20 +8,31 @@ from .models import ShortLink
 
 
 class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model: settings.AUTH_USER_MODEL
+        model: User
         fields = ['id', 'username']
 
 
 class ShortLinkSerializer(serializers.ModelSerializer):
-    user = UserSerializer(required=False)
 
     class Meta:
         model = ShortLink
-        fields = ['full_link', 'short_link', 'users']
-        read_only_fields = ['short_link', 'users']
+        fields = ['full_link', 'short_link']
+        read_only_fields = ['short_link']
 
     def create(self, validated_data):
-        user_data = validated_data.pop('users')
         shortlink = ShortLink.objects.create(**validated_data)
-        settings.AUTH_USER_MODEL.objects.create(shortlink=shortlink, **user_data)
+        if str(self.context['request'].user) != 'AnonymousUser':
+            username = str(self.context['request'].user)
+            shortlink.users.set(User.objects.filter(username=username))
+        return shortlink
+
+    # COMMENT / QUESTION: Is the two first lines usefull ?
+    def update(self, instance, validated_data):
+        instance.full_link = validated_data.get('full_link', instance.full_link)
+        instance.save()
+        if str(self.context['request'].user) != 'AnonymousUser':
+            username = str(self.context['request'].user)
+            instance.users.add(User.objects.get(username=username))
+        return instance

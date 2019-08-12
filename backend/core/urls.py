@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     path(
         'create-short-link/',
-        views.CreateShortLinkView.as_view(),
+        views.ShortLinkView.as_view(),
         name='short-link-create'
     ),
     path(
