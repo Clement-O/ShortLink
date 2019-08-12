@@ -3,11 +3,14 @@ import random
 
 from django.db import models
 from django.core.validators import URLValidator
+from django.conf import settings
 
 
 class ShortLink(models.Model):
     full_link = models.URLField(validators=[URLValidator], unique=True)
     short_link = models.CharField(max_length=5, unique=True)
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True,
+                                   related_name='short_links')
 
     def save(self, *args, **kwargs):
         if self.pk is None:
