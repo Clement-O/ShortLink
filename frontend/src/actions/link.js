@@ -31,9 +31,13 @@ function errorShortenLink(message) {
 }
 
 export const shortenLink = full_link => {
+    let headers = {"Content-Type": "application/json"};
+    if (localStorage.getItem('token_access')) {
+        headers.Authorization = "Bearer " + localStorage.getItem('token_access')
+    }
     const config = {
         method: 'POST',
-        headers: {"Content-Type": "application/json"},
+        headers: headers,
         body: JSON.stringify({full_link})
     }
     return dispatch => {
@@ -43,11 +47,11 @@ export const shortenLink = full_link => {
             .then(res => res.json().then(links => ({links, res})))
             .then(({links, res}) => {
                 if (!res.ok) {
-                    dispatch(errorShortenLink(links.message))
+                    dispatch(errorShortenLink(links.full_link[0]))
                     return Promise.reject(links)
                 } else {
                     dispatch(successShortenLink(links))
                 }
             })
-    }    
+    }
 }

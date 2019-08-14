@@ -6,13 +6,18 @@ from . import views
 urlpatterns = [
     path(
         'create-short-link/',
-        views.CreateShortLinkView.as_view(),
+        views.ShortLinkView.as_view(),
         name='short-link-create'
     ),
     path(
         'redirect/<short_link>/',
         views.RetrieveShortLinkView.as_view(),
         name='short-link-redirect'
+    ),
+    path(
+        'user-link/',
+        views.UserLinksView.as_view(),
+        name='user-link-show'
     ),
     path(
         'token-access/',

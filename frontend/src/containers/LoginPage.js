@@ -1,39 +1,25 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom'
 // Local import
 import {auth} from '../actions'
 // Components
 import NavBar from "../components/NavBar";
 import LoginForm from "../components/LoginForm";
 
-
 class LoginPage extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            username: props.username,
-            password: props.password,
-        }
-    }
 
     render() {
-        // Add a store.subscribe to get the local store and redirect (how) ?
-        // Pass the props isAuthenticated and redirect (how) ?
-        // Other way ?
-        if (!!localStorage.getItem('token_access')) {
-            return (
-                <div>
-                    <p>Do a redirection to home page</p>
-                </div>
-            )
+        if (this.props.isAuthenticated) {
+            return <Redirect to='/' />
         } else {
             return (
-                <div>
-                    <NavBar />
-                    <h1>Login Page</h1>
-                    <LoginForm userLogin={this.props.userLogin}/>
-                </div>
+                    <div>
+                        <NavBar />
+                        <h1>Login Page</h1>
+                        <LoginForm userLogin={this.props.userLogin}/>
+                        {this.props.errorMessage ? <p>{this.props.errorMessage}</p> : ''}
+                    </div>
             )
         }
 
@@ -42,8 +28,8 @@ class LoginPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        username: state.username,
-        password: state.password,
+        isAuthenticated: state.auth.isAuthenticated,
+        errorMessage: state.auth.errorMessage
     }
 }
 
