@@ -1,12 +1,14 @@
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 # Third party import
-from rest_framework import generics, mixins, parsers, renderers
+from rest_framework import (generics, mixins, parsers, renderers, permissions,
+                            response)
 from rest_framework_simplejwt import views, serializers
 
 # Local import
 from .models import ShortLink
-from .serializers import ShortLinkSerializer
+from .serializers import ShortLinkSerializer, UserLinkSerializer
 
 
 class ShortLinkView(generics.GenericAPIView,
@@ -18,6 +20,7 @@ class ShortLinkView(generics.GenericAPIView,
     Retrieve full link already shortened
     :return JSON {"full_link": "https://www.google.com/", "short_link": "D88o9"}
     """
+    permission_classes = [permissions.AllowAny]
     parser_classes = (
         parsers.FormParser,
         parsers.MultiPartParser,
@@ -32,7 +35,8 @@ class ShortLinkView(generics.GenericAPIView,
             if str(request.user) != 'AnonymousUser':
                 username = str(request.user)
                 user = User.objects.get(username=username)
-                if ShortLink.objects.filter(full_link=full_link, users=user.id).exists():
+                if ShortLink.objects.filter(full_link=full_link,
+                                            users=user.id).exists():
                     return self.retrieve(request, *args, **kwargs)
                 else:
                     return self.update(request, *args, **kwargs)
@@ -51,6 +55,7 @@ class RetrieveShortLinkView(generics.RetrieveAPIView):
     Accept GET only
     :return JSON {"full_link": "https://www.google.com/", "short_link": "D88o9"}
     """
+    permission_classes = [permissions.AllowAny]
     parser_classes = (
         parsers.FormParser,
         parsers.MultiPartParser,
@@ -60,7 +65,35 @@ class RetrieveShortLinkView(generics.RetrieveAPIView):
     serializer_class = ShortLinkSerializer
 
     def get_object(self):
-        return ShortLink.objects.get(short_link=self.kwargs.get('short_link'))
+        obj = get_object_or_404(ShortLink, short_link=self.kwargs['short_link'])
+        if obj:
+            obj.add_count()
+        return obj
+
+
+class UserLinksView(generics.RetrieveAPIView):
+    """
+    Accept GET only
+    :return JSON [
+        {"full_link": "...", "short_link": "..."},
+        {"full_link": "...", "short_link": "..."}
+    ]
+    """
+    permission_classes = [permissions.IsAuthenticated]
+    parser_classes = (
+        parsers.JSONParser,
+    )
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = UserLinkSerializer
+
+    def get_object(self):
+        user = User.objects.get(username=self.request.user)
+        return ShortLink.objects.all().filter(users=user.id)
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, many=True)
+        return response.Response(serializer.data)
 
 
 class UserAccessTokenView(views.TokenObtainPairView):
@@ -68,6 +101,7 @@ class UserAccessTokenView(views.TokenObtainPairView):
     Custom TokenObtainPairView to 'delete' the ability to access it via the backend
     :return JSON Web Token. Access & Refresh Token (User ID in payload)
     """
+    permission_classes = [permissions.AllowAny]
     parser_classes = (
         parsers.FormParser,
         parsers.MultiPartParser,
@@ -82,6 +116,7 @@ class UserRefreshTokenView(views.TokenRefreshView):
     Custom TokenRefreshView to 'delete' the ability to access it via the backend
     :return JSON Web Token. Access Token (User ID in payload)
     """
+    permission_classes = [permissions.AllowAny]
     parser_classes = (
         parsers.FormParser,
         parsers.MultiPartParser,

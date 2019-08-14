@@ -2,8 +2,6 @@
 import {SHORTEN_LINK_REQUEST, SHORTEN_LINK_SUCCESS, SHORTEN_LINK_ERROR} from "../actions/link";
 
 const initialState = {
-    full_link: '',
-    short_link: '',
     isShortening: false,
     isShortened: false,
 }

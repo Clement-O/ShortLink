@@ -15,10 +15,12 @@ export default class LogoutForm extends Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
-                <button type='submit'>YES</button>
-                <button><a href='/'>NO</a></button>
-            </form>
+            <div>
+                <form onSubmit={this.onSubmit}>
+                    <button type='submit'>YES</button>
+                </form>
+                <a href='/'><button>NO</button></a>
+            </div>
         );
     }
 }

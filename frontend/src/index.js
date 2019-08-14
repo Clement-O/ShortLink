@@ -10,6 +10,8 @@ import {store} from './store'
 import MainPage from './containers/MainPage';
 import LoginPage from "./containers/LoginPage";
 import LogoutPage from "./containers/LogoutPage";
+import UserPage from "./containers/UserPage";
+import RedirectPage from "./containers/RedirectPage";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -19,6 +21,8 @@ ReactDOM.render(
                 <Route exact path='/' component={MainPage} />
                 <Route exact path='/login' component={LoginPage} />
                 <Route exact path='/logout' component={LogoutPage} />
+                <Route exact path='/user' component={UserPage} />
+                <Route path='/:short_link' component={RedirectPage} />
             </Switch>
         </BrowserRouter>
     </Provider>

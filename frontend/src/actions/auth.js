@@ -4,20 +4,23 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 
-function requestLogin(creds) {
+function requestLogin() {
     return {
         type: LOGIN_REQUEST,
-        isFetching: true,
+        isAuthenticating: true,
         isAuthenticated: false,
-        creds
+        isDisconnecting: false,
+        isDisconnected: false,
     }
 }
 
-function receiveLogin(tokens) {
+function successLogin(tokens) {
     return {
         type: LOGIN_SUCCESS,
-        isFetching: false,
+        isAuthenticating: false,
         isAuthenticated: true,
+        isDisconnecting: false,
+        isDisconnected: false,
         token_access: tokens.access
     }
 }
@@ -25,8 +28,10 @@ function receiveLogin(tokens) {
 function errorLogin(message) {
     return {
         type: LOGIN_FAILURE,
-        isFetching: false,
+        isAuthenticating: false,
         isAuthenticated: false,
+        isDisconnecting: false,
+        isDisconnected: false,
         message
     }
 }
@@ -34,16 +39,20 @@ function errorLogin(message) {
 function requestLogout() {
     return {
         type: LOGOUT_REQUEST,
-        isFetching: true,
-        isAuthenticated: false,
+        isAuthenticating: false,
+        isAuthenticated: true,
+        isDisconnecting: true,
+        isDisconnected: false,
     }
 }
 
-function receiveLogout() {
+function successLogout() {
     return {
         type: LOGOUT_SUCCESS,
-        isFetching: false,
-        isAuthenticated: true,
+        isAuthenticating: false,
+        isAuthenticated: false,
+        isDisconnecting: false,
+        isDisconnected: true,
     }
 }
 
@@ -60,12 +69,12 @@ export const userLogin = ({username, password}) => {
             .then(res => res.json().then(tokens => ({tokens, res})))
             .then(({tokens, res}) => {
                 if (!res.ok) {
-                    dispatch(errorLogin(tokens.message))
+                    dispatch(errorLogin(tokens.detail))
                     return Promise.reject(tokens)
                 } else {
                     localStorage.setItem('token_access', tokens.access)
                     localStorage.setItem('token_refresh', tokens.refresh)
-                    dispatch(receiveLogin(tokens))
+                    dispatch(successLogin(tokens))
                 }
             }).catch(err => console.log("Error: ", err))
     }
@@ -76,6 +85,6 @@ export const userLogout = () => {
         dispatch(requestLogout())
         localStorage.removeItem('token_access')
         localStorage.removeItem('token_refresh')
-        dispatch(receiveLogout())
+        dispatch(successLogout())
     }
 }

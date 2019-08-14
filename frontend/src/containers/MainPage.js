@@ -2,25 +2,11 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 // Local import
 import {link} from '../actions'
-import {store} from '../store'
 // Components
 import NavBar from "../components/NavBar";
 import LinkForm from '../components/LinkForm'
 
 class MainPage extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            short_link: props.short_link,
-        }
-
-        store.subscribe(() => {
-            this.setState({
-                short_link: store.getState().link.short_link,
-            })
-        })
-    }
 
     render() {
         return (
@@ -28,7 +14,7 @@ class MainPage extends Component {
                 <NavBar />
                 <h1>Shorten link app</h1>
                 <LinkForm shortenLink={this.props.shortenLink}/>
-                <h2>{this.props.short_link ? this.props.short_link : ''}</h2>
+                <h2>{this.props.short_link ? this.props.short_link : this.props.errorMessage}</h2>
             </div>
         )
     }
@@ -36,8 +22,8 @@ class MainPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        full_link: state.link.full_link,
         short_link: state.link.short_link,
+        errorMessage: state.link.errorMessage,
     }
 }
 

@@ -47,7 +47,7 @@ export const shortenLink = full_link => {
             .then(res => res.json().then(links => ({links, res})))
             .then(({links, res}) => {
                 if (!res.ok) {
-                    dispatch(errorShortenLink(links.message))
+                    dispatch(errorShortenLink(links.full_link[0]))
                     return Promise.reject(links)
                 } else {
                     dispatch(successShortenLink(links))

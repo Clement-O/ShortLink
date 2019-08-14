@@ -15,6 +15,11 @@ urlpatterns = [
         name='short-link-redirect'
     ),
     path(
+        'user-link/',
+        views.UserLinksView.as_view(),
+        name='user-link-show'
+    ),
+    path(
         'token-access/',
         views.UserAccessTokenView.as_view(),
         name='user-access-token'

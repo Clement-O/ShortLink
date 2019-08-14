@@ -7,13 +7,6 @@ from rest_framework import serializers
 from .models import ShortLink
 
 
-class UserSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model: User
-        fields = ['id', 'username']
-
-
 class ShortLinkSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -36,3 +29,10 @@ class ShortLinkSerializer(serializers.ModelSerializer):
             username = str(self.context['request'].user)
             instance.users.add(User.objects.get(username=username))
         return instance
+
+
+class UserLinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShortLink
+        fields = ['full_link', 'short_link', 'redirect_count']
+        read_only_fields = ['full_link', 'short_link', 'redirect_count']

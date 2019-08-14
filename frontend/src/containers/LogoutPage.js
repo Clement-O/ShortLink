@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 // Local import
 import {auth} from '../actions'
 // Component
@@ -9,15 +10,8 @@ import LogoutForm from '../components/LogoutForm'
 class LogoutPage extends Component {
 
     render() {
-        // Add a store.subscribe to get the local store and redirect (how) ?
-        // Pass the props isAuthenticated and redirect (how) ?
-        // Other way ?
-        if (!!!localStorage.getItem('token_access')) {
-            return (
-                <div>
-                    <p>Do a redirection to home page</p>
-                </div>
-            )
+        if (!this.props.isAuthenticated) {
+            return <Redirect to='/' />
         } else {
             return (
                 <div>
@@ -31,7 +25,9 @@ class LogoutPage extends Component {
 }
 
 const mapStateToProps = state => {
-    return {}
+    return {
+        isAuthenticated: state.auth.isAuthenticated
+    }
 }
 
 const mapDispatchToProps = dispatch => {

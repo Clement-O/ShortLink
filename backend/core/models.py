@@ -9,6 +9,7 @@ from django.conf import settings
 class ShortLink(models.Model):
     full_link = models.URLField(validators=[URLValidator], unique=True)
     short_link = models.CharField(max_length=5, unique=True)
+    redirect_count = models.IntegerField(default=0)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True,
                                    related_name='shortlinks')
 
@@ -24,3 +25,7 @@ class ShortLink(models.Model):
         while ShortLink.objects.filter(short_link=rand_short_link).exists():
             rand_short_link = ''.join([random.choice(chr) for n in range(5)])
         self.short_link = rand_short_link
+
+    def add_count(self):
+        self.redirect_count += 1
+        self.save()
