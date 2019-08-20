@@ -1,51 +1,55 @@
 import React, {Component} from 'react'
+// UI AntDesign
+import {Form, Icon, Input, Button} from 'antd'
 
-export default class LoginForm extends Component {
-    constructor(props){
-        super(props)
+class LoginForm extends Component {
 
-        this.state = {
-            username: '',
-            password: '',
-        }
+    onSubmit = event => {
+        event.preventDefault()
 
-        this.handleChange = this.handleChange.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
-    }
-
-    handleChange(event) {
-        const {name, value} = event.target
-
-        this.setState({
-            [name]: value
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.props.userLogin(values)
+            }
         })
     }
 
-    onSubmit(event) {
-        event.preventDefault()
-
-        this.props.userLogin(this.state)
-    }
-
     render() {
-
+        const { getFieldDecorator } = this.props.form;
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    type='text'
-                    name='username'
-                    value={this.state.username}
-                    placeholder='Your username'
-                    onChange={this.handleChange}
-                />
-                <input
-                    type='password'
-                    name='password'
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                />
-                <button type='submit'>Submit</button>
-            </form>
+            <Form onSubmit={this.onSubmit} className="login-form">
+                <Form.Item>
+                    {getFieldDecorator('username', {
+                        rules: [{ required: true, message: 'Please input your username!' }],
+                    })(
+                      <Input
+                          prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                          type='text'
+                          name='username'
+                          placeholder="Username"
+                      />
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    {getFieldDecorator('password', {
+                        rules: [{ required: true, message: 'Please input your Password!' }],
+                    })(
+                        <Input.Password
+                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            type="password"
+                            name='password'
+                            placeholder="Password"
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                        Log in
+                    </Button>
+                </Form.Item>
+            </Form>
         )
     }
 }
+
+export default Form.create({ name: 'login_form' })(LoginForm);

@@ -4,8 +4,11 @@ import {Redirect} from 'react-router-dom'
 // Local import
 import {auth} from '../actions'
 // Components
-import NavBar from "../components/NavBar";
+import NavBar from "./NavBar";
 import LoginForm from "../components/LoginForm";
+// UI AntDesign
+import '../css/Shared.css'
+import '../css/Login.css'
 
 class LoginPage extends Component {
 
@@ -14,15 +17,17 @@ class LoginPage extends Component {
             return <Redirect to='/' />
         } else {
             return (
-                    <div>
-                        <NavBar />
-                        <h1>Login Page</h1>
-                        <LoginForm userLogin={this.props.userLogin}/>
-                        {this.props.errorMessage ? <p>{this.props.errorMessage}</p> : ''}
-                    </div>
+                <div>
+                    <NavBar />
+                    <h1 className='title'>Login Page</h1>
+                    <LoginForm userLogin={this.props.userLogin} />
+                    {this.props.errorMessage ?
+                        <p className='login-error'>
+                            {this.props.errorMessage}
+                        </p> : ''}
+                </div>
             )
         }
-
     }
 }
 

@@ -1,0 +1,20 @@
+.login-form {
+    width: 33%;
+    margin: auto;
+}
+
+.login-form-button {
+    width: 100%;
+}
+
+.login-error {
+    margin: auto;
+    text-align: center;
+    color: #f5222d;
+}
+
+@media(max-width: 767px) {
+    .login-form {
+        width: 80%;
+    }
+}

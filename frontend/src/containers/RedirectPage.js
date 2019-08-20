@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 // Local import
 import {redirect} from '../actions'
 // Components
-import NavBar from "../components/NavBar";
+import NavBar from "./NavBar";
 
 class RedirectPage extends Component {
 

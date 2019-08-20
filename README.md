@@ -38,20 +38,21 @@ See the README.md in the frontend directory for React
 #### ToDo List:
 - Refresh Token logic
 - User Registration
-- CSS
-- Tests
-- Use Docker
 
 #### Done:
-- Shorten link
-- Login / Logout
-- Bind link to users (when they shorten them)
+- Shorten link + Copy button
+- Login / Logout (Token based authentication)
+- Bind link to users when they shorten them (ManyToMany Relation.)
 - Redirect after login / logout
-- Basic error message for shorten link & login
+- Basic error message for shorten link & login (backend data validation)
 - Redirect to the full link
 - Add redirect count
 
-#### Partially Done:
-- User 'account' (to see shorten link, redirect count)
-    - Backend send all user's links
-    - Unable to display it on the frontend
+#### Improvements:
+- Client side data validation
+- Improve CSS / Global look / Responsive
+- Tests
+- Use Docker
+- Cleaner and more consistency code (refactoring)
+- More information on shortening link (date, ...)
+- Add user's redirect count (global redirect count actually)

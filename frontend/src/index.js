@@ -4,24 +4,21 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 // Local import
-import './index.css';
-import App from './App';
 import {store} from './store'
 import MainPage from './containers/MainPage';
 import LoginPage from "./containers/LoginPage";
 import LogoutPage from "./containers/LogoutPage";
-import UserPage from "./containers/UserPage";
+import UserLinkPage from "./containers/UserLinkPage";
 import RedirectPage from "./containers/RedirectPage";
 
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
-                <Route exact path='/demoapp' component={App} />
                 <Route exact path='/' component={MainPage} />
                 <Route exact path='/login' component={LoginPage} />
                 <Route exact path='/logout' component={LogoutPage} />
-                <Route exact path='/user' component={UserPage} />
+                <Route exact path='/user' component={UserLinkPage} />
                 <Route path='/:short_link' component={RedirectPage} />
             </Switch>
         </BrowserRouter>

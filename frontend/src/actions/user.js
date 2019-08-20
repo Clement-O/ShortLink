@@ -46,11 +46,6 @@ export const userLink = () => {
                     dispatch(errorUserLink(user.message))
                     return Promise.reject(user)
                 } else {
-                    // CONSOLE LOG
-                    console.log('USER Response + ItemList')
-                    console.log(res)
-                    console.log(user)
-                    console.log('----------')
                     dispatch(successUserLink(user))
                 }
             })

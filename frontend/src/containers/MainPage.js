@@ -3,18 +3,28 @@ import {connect} from 'react-redux';
 // Local import
 import {link} from '../actions'
 // Components
-import NavBar from "../components/NavBar";
+import NavBar from "./NavBar";
 import LinkForm from '../components/LinkForm'
+// UI AntDesign
+import '../css/Shared.css'
+import '../css/MainPage.css'
 
 class MainPage extends Component {
+
+    onCopy = event => {
+        let copyLink = document.getElementById('link')
+        let h1Text = copyLink.textContent
+        h1Text.select()
+        document.execCommand('copy')
+    }
 
     render() {
         return (
             <div>
                 <NavBar />
-                <h1>Shorten link app</h1>
-                <LinkForm shortenLink={this.props.shortenLink}/>
-                <h2>{this.props.short_link ? this.props.short_link : this.props.errorMessage}</h2>
+                <h1 className='title'>Short link</h1>
+                <LinkForm shortenLink={this.props.shortenLink} short_link={this.props.short_link}/>
+                {this.props.errorMessage ? <p className='link-error'>{this.props.errorMessage}</p> : ''}
             </div>
         )
     }

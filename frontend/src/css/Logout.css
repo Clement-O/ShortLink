@@ -1,0 +1,11 @@
+.logout-form {
+    width: 33%;
+    margin: auto;
+    text-align: center;
+}
+
+@media(max-width: 767px) {
+    .logout-form {
+        width: 80%;
+    }
+}

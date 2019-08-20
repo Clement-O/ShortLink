@@ -3,19 +3,21 @@ import {connect} from 'react-redux'
 // Local import
 import {user} from '../actions'
 // Component
-import NavBar from '../components/NavBar';
+import NavBar from './NavBar';
 import UserLink from "../components/UserLink";
+// UI AntDesing
+import '../css/Shared.css'
 
-class UserPage extends Component {
+class UserLinkPage extends Component {
 
     render() {
         return (
             <div>
                 <NavBar />
-                <h1>User Links Page</h1>
+                <h1 className='title'>User Links Page</h1>
                 <UserLink userLink={this.props.userLink} user_links={this.props.user_links}/>
             </div>
-            )
+        )
     }
 }
 
@@ -33,4 +35,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserPage)
+export default connect(mapStateToProps, mapDispatchToProps)(UserLinkPage)

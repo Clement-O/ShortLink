@@ -1,0 +1,26 @@
+.link-form {
+    width: 33%;
+    margin: auto;
+}
+
+.link-form-button {
+    width: 100%;
+}
+
+.link-success {
+    margin: auto;
+    text-align: center;
+    color: #1890ff
+}
+
+.link-error {
+    margin: auto;
+    text-align: center;
+    color: #f5222d;
+}
+
+@media(max-width: 767px) {
+    .link-form {
+        width: 80%;
+    }
+}

@@ -4,8 +4,11 @@ import {Redirect} from 'react-router-dom'
 // Local import
 import {auth} from '../actions'
 // Component
-import NavBar from '../components/NavBar';
+import NavBar from './NavBar';
 import LogoutForm from '../components/LogoutForm'
+// UI AntDesign
+import '../css/Shared.css'
+import '../css/Logout.css'
 
 class LogoutPage extends Component {
 
@@ -16,7 +19,7 @@ class LogoutPage extends Component {
             return (
                 <div>
                     <NavBar/>
-                    <h1>Logout Page</h1>
+                    <h1 className='title'>Are you sure you want to log out ?</h1>
                     <LogoutForm userLogout={this.props.userLogout}/>
                 </div>
             )

@@ -1,13 +1,10 @@
 import React, {Component} from 'react'
+// UI AntDesign
+import {Form, Button} from "antd";
 
 export default class LogoutForm extends Component {
-    constructor(props) {
-        super(props);
 
-        this.onSubmit = this.onSubmit.bind(this)
-    }
-
-    onSubmit(event) {
+    onSubmit = event => {
         event.preventDefault()
 
         this.props.userLogout()
@@ -16,11 +13,21 @@ export default class LogoutForm extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.onSubmit}>
-                    <button type='submit'>YES</button>
-                </form>
-                <a href='/'><button>NO</button></a>
+                <Form layout='inline' onSubmit={this.onSubmit} className='logout-form'>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" >
+                            YES
+                        </Button>
+                    </Form.Item>
+                    <Form.Item>
+                        <a href='/'>
+                            <Button type='primary'>
+                                NO
+                            </Button>
+                        </a>
+                    </Form.Item>
+                </Form>
             </div>
-        );
+        )
     }
 }
