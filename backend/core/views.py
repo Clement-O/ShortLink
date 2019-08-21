@@ -30,6 +30,7 @@ class ShortLinkView(generics.GenericAPIView,
     serializer_class = ShortLinkSerializer
 
     def post(self, request, *args, **kwargs):
+        print(request.data)
         full_link = request.data['full_link']
         if ShortLink.objects.filter(full_link=full_link).exists():
             if str(request.user) != 'AnonymousUser':
@@ -75,8 +76,8 @@ class UserLinksView(generics.RetrieveAPIView):
     """
     Accept GET only
     :return JSON [
-        {"full_link": "...", "short_link": "..."},
-        {"full_link": "...", "short_link": "..."}
+        {"full_link": "...", "short_link": "...", "redirect_count": "..."},
+        {"full_link": "...", "short_link": "...", "redirect_count": "..."}
     ]
     """
     permission_classes = [permissions.IsAuthenticated]
@@ -124,3 +125,18 @@ class UserRefreshTokenView(views.TokenRefreshView):
     )
     renderer_classes = (renderers.JSONRenderer,)
     serializer_class = serializers.TokenRefreshSerializer
+
+
+class UserVerifyTokenView(views.TokenVerifyView):
+    """
+    Custom TokenVerifyView to 'delete' the ability to access it via the backend
+    :return
+    """
+    permission_classes = [permissions.AllowAny]
+    parser_classes = (
+        parsers.FormParser,
+        parsers.MultiPartParser,
+        parsers.JSONParser,
+    )
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = serializers.TokenVerifySerializer

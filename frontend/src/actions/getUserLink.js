@@ -28,7 +28,7 @@ function errorUserLink(message) {
     }
 }
 
-export const userLink = () => {
+export const getUserLink = () => {
     const config = {
         method: 'GET',
         headers: {
@@ -40,13 +40,13 @@ export const userLink = () => {
         dispatch(requestUserLink())
 
         return fetch('/user-link/', config)
-            .then(res => res.json().then(user => ({user, res})))
-            .then(({user, res}) => {
+            .then(res => res.json().then(user_link => ({user_link, res})))
+            .then(({user_link, res}) => {
                 if (!res.ok) {
-                    dispatch(errorUserLink(user.message))
-                    return Promise.reject(user)
+                    dispatch(errorUserLink(user_link.message))
+                    return Promise.reject(user_link)
                 } else {
-                    dispatch(successUserLink(user))
+                    dispatch(successUserLink(user_link))
                 }
             })
     }

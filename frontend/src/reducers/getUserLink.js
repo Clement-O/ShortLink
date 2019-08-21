@@ -1,12 +1,12 @@
 // Local import
-import {USER_LINK_REQUEST, USER_LINK_SUCCESS, USER_LINK_ERROR} from "../actions/user";
+import {USER_LINK_REQUEST, USER_LINK_SUCCESS, USER_LINK_ERROR} from "../actions/getUserLink";
 
 const initialState = {
     isFetching: false,
     isFetched: false
 }
 
-export default function user(state=initialState, action) {
+export default function getUserLink(state=initialState, action) {
     switch (action.type) {
         case USER_LINK_REQUEST:
             return {

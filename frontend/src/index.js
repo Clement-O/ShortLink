@@ -10,15 +10,16 @@ import LoginPage from "./containers/LoginPage";
 import LogoutPage from "./containers/LogoutPage";
 import UserLinkPage from "./containers/UserLinkPage";
 import RedirectPage from "./containers/RedirectPage";
+import AuthenticatedRoute from "./components/AuthenticatedRoute";
 
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Switch>
-                <Route exact path='/' component={MainPage} />
+                <AuthenticatedRoute exact path={'/'} component={MainPage} />
                 <Route exact path='/login' component={LoginPage} />
-                <Route exact path='/logout' component={LogoutPage} />
-                <Route exact path='/user' component={UserLinkPage} />
+                <AuthenticatedRoute path={'/logout'} component={LogoutPage} />
+                <AuthenticatedRoute path={'/user'} component={UserLinkPage} />
                 <Route path='/:short_link' component={RedirectPage} />
             </Switch>
         </BrowserRouter>

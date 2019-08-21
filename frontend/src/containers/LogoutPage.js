@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 // Local import
-import {auth} from '../actions'
+import {logOut} from '../actions'
 // Component
 import NavBar from './NavBar';
 import LogoutForm from '../components/LogoutForm'
@@ -13,7 +13,7 @@ import '../css/Logout.css'
 class LogoutPage extends Component {
 
     render() {
-        if (!this.props.isAuthenticated) {
+        if (this.props.isDisconnected) {
             return <Redirect to='/' />
         } else {
             return (
@@ -29,14 +29,14 @@ class LogoutPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.auth.isAuthenticated
+        isDisconnected: state.logOut.isDisconnected
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         userLogout: () => {
-            dispatch(auth.userLogout())
+            dispatch(logOut.userLogout())
         }
     }
 }

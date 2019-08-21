@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 // Local import
-import {redirect} from '../actions'
+import {redirectLink} from '../actions'
 // Components
 import NavBar from "./NavBar";
 
@@ -27,16 +27,16 @@ class RedirectPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        isRedirected: state.redirect.isRedirected,
-        full_link: state.redirect.full_link,
-        errorMessage: state.redirect.errorMessage,
+        isRedirected: state.redirectLink.isRedirected,
+        full_link: state.redirectLink.full_link,
+        errorMessage: state.redirectLink.errorMessage,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         redirectLink: (short_link) => {
-            dispatch(redirect.redirectLink(short_link))
+            dispatch(redirectLink.redirectLink(short_link))
         }
     }
 }

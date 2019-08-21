@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom'
 // Local import
-import {auth} from '../actions'
+import {logIn} from '../actions'
 // Components
 import NavBar from "./NavBar";
 import LoginForm from "../components/LoginForm";
@@ -33,15 +33,15 @@ class LoginPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.auth.isAuthenticated,
-        errorMessage: state.auth.errorMessage
+        isAuthenticated: state.logIn.isAuthenticated,
+        errorMessage: state.logIn.errorMessage
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         userLogin: (creds) => {
-            dispatch(auth.userLogin(creds))
+            dispatch(logIn.userLogin(creds))
         }
     }
 }

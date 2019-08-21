@@ -5,7 +5,7 @@ import {Table} from 'antd'
 export default class UserLink extends Component {
 
     componentDidMount() {
-        this.props.userLink()
+        this.props.getUserLink()
     }
 
     render() {
@@ -13,13 +13,13 @@ export default class UserLink extends Component {
             return null
         }
         const columns = [{
-            title: 'Original link',
+            title: 'Original shortenLink',
             dataIndex: 'full_link',
             key: 'full_link',
             render: text => <a href={text}>{text}</a>
         },
         {
-            title: 'Shortened link',
+            title: 'Shortened shortenLink',
             dataIndex: 'short_link',
             key: 'short_link',
             render: text => <a href={`localhost:3000/${text}`}>{text}</a>

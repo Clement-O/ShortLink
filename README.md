@@ -36,7 +36,6 @@ See the README.md in the frontend directory for React
 
 ## Actual progression:
 #### ToDo List:
-- Refresh Token logic
 - User Registration
 
 #### Done:
@@ -47,12 +46,17 @@ See the README.md in the frontend directory for React
 - Basic error message for shorten link & login (backend data validation)
 - Redirect to the full link
 - Add redirect count
+- Summary of user's link and redirect count
+
+#### Partially Done:
+- Private Route (Authenticated views)
+- Refresh Token logic
 
 #### Improvements:
 - Client side data validation
 - Improve CSS / Global look / Responsive
 - Tests
 - Use Docker
-- Cleaner and more consistency code (refactoring)
+- Cleaner and more consistency code (refactoring => name convention, store/state...)
 - More information on shortening link (date, ...)
 - Add user's redirect count (global redirect count actually)

@@ -35,6 +35,7 @@ export const shortenLink = full_link => {
     if (localStorage.getItem('token_access')) {
         headers.Authorization = "Bearer " + localStorage.getItem('token_access')
     }
+    console.log(full_link)
     const config = {
         method: 'POST',
         headers: headers,

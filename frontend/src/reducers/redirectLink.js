@@ -1,12 +1,12 @@
 // Local import
-import {REDIRECT_LINK_REQUEST, REDIRECT_LINK_SUCCESS, REDIRECT_LINK_ERROR} from "../actions/redirect";
+import {REDIRECT_LINK_REQUEST, REDIRECT_LINK_SUCCESS, REDIRECT_LINK_ERROR} from "../actions/redirectLink";
 
 const initialState = {
     isRedirecting: false,
     isRedirected: false
 }
 
-export default function redirect(state=initialState, action) {
+export default function redirectLink(state=initialState, action) {
     switch (action.type) {
         case REDIRECT_LINK_REQUEST:
             return {

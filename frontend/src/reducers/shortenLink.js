@@ -1,12 +1,12 @@
 // Local import
-import {SHORTEN_LINK_REQUEST, SHORTEN_LINK_SUCCESS, SHORTEN_LINK_ERROR} from "../actions/link";
+import {SHORTEN_LINK_REQUEST, SHORTEN_LINK_SUCCESS, SHORTEN_LINK_ERROR} from "../actions/shortenLink";
 
 const initialState = {
     isShortening: false,
     isShortened: false,
 }
 
-export default function link(state=initialState, action) {
+export default function shortenLink(state=initialState, action) {
     switch (action.type) {
         case SHORTEN_LINK_REQUEST:
             return {

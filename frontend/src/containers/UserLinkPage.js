@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 // Local import
-import {user} from '../actions'
+import {getUserLink} from '../actions'
 // Component
 import NavBar from './NavBar';
 import UserLink from "../components/UserLink";
@@ -15,7 +15,7 @@ class UserLinkPage extends Component {
             <div>
                 <NavBar />
                 <h1 className='title'>User Links Page</h1>
-                <UserLink userLink={this.props.userLink} user_links={this.props.user_links}/>
+                <UserLink getUserLink={this.props.getUserLink} user_links={this.props.user_links}/>
             </div>
         )
     }
@@ -23,14 +23,14 @@ class UserLinkPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        user_links: state.user.user_links
+        user_links: state.getUserLink.user_links
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        userLink: () => {
-            dispatch(user.userLink())
+        getUserLink: () => {
+            dispatch(getUserLink.getUserLink())
         }
     }
 }

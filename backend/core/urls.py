@@ -28,5 +28,10 @@ urlpatterns = [
         'token-refresh/',
         views.UserRefreshTokenView.as_view(),
         name='user-refresh-token'
+    ),
+    path(
+        'token-verify/',
+        views.UserVerifyTokenView.as_view(),
+        name='user-token-verify'
     )
 ]

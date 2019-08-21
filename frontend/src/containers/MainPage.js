@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 // Local import
-import {link} from '../actions'
+import {shortenLink} from '../actions'
 // Components
 import NavBar from "./NavBar";
 import LinkForm from '../components/LinkForm'
@@ -12,7 +12,7 @@ import '../css/MainPage.css'
 class MainPage extends Component {
 
     onCopy = event => {
-        let copyLink = document.getElementById('link')
+        let copyLink = document.getElementById('shortenLink')
         let h1Text = copyLink.textContent
         h1Text.select()
         document.execCommand('copy')
@@ -32,15 +32,15 @@ class MainPage extends Component {
 
 const mapStateToProps = state => {
     return {
-        short_link: state.link.short_link,
-        errorMessage: state.link.errorMessage,
+        short_link: state.shortenLink.short_link,
+        errorMessage: state.shortenLink.errorMessage,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         shortenLink: (full_link) => {
-            dispatch(link.shortenLink(full_link))
+            dispatch(shortenLink.shortenLink(full_link))
         }
     }
 }

@@ -1,10 +1,16 @@
 // Local import
-import * as link from './link'
-import * as auth from './auth'
-import * as user from './user'
-import * as redirect from "./redirect";
+import * as shortenLink from './shortenLink'
+import * as logIn from './logIn'
+import * as logOut from './logOut'
+import * as verifyToken from './verifyToken'
+import * as refreshToken from "./refreshToken";
+import * as getUserLink from './getUserLink'
+import * as redirectLink from "./redirectLink";
 
-export {link}
-export {auth}
-export {user}
-export {redirect}
+export {shortenLink}
+export {logIn}
+export {logOut}
+export {verifyToken}
+export {refreshToken}
+export {getUserLink}
+export {redirectLink}
